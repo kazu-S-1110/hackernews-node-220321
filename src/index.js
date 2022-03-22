@@ -15,6 +15,18 @@ const resolvers = {
     info: () => `This is the API of a Hackernews clone`,
     feed: () => links,
   },
+  Mutation: {
+    post: (parent, args) => {
+      let idCount = links.length;
+      const link = {
+        id: `link-${idCount++}`,
+        description: args.description,
+        url: args.url,
+      };
+      links.push(link);
+      return link;
+    },
+  },
 };
 
 const server = new ApolloServer({
