@@ -1,16 +1,6 @@
 const { ApolloServer } = require('apollo-server');
-
-const typeDefs = `
-  type Query {
-    info: String!
-    feed: [Link!]!
-  }
-  type Link {
-    id: ID!
-    description: String!
-    url: String!
-  }
-`;
+const fs = require('fs');
+const path = require('path');
 
 let links = [
   {
@@ -25,16 +15,10 @@ const resolvers = {
     info: () => `This is the API of a Hackernews clone`,
     feed: () => links,
   },
-  // 実際に下のような動きをするけど実装する必要はない。（こう動くことを理解する）
-  // Link: {
-  //   id: (parent) => parent.id,
-  //   description: (parent) => parent.description,
-  //   // url: (parent) => parent.url,
-  // },
 };
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf-8'),
   resolvers,
 });
 
