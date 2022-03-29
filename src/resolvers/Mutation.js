@@ -1,4 +1,6 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { APP_SECRET, getUserId } from '../utils';
 
 export const signup = async (parent, args, context, info) => {
   const password = await bcrypt.hash(args.password, 10);
