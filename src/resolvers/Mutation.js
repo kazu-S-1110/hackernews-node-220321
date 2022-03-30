@@ -35,3 +35,17 @@ export const login = async (parent, args, context, info) => {
     user,
   };
 };
+
+export const post = async (parent, args, context, info) => {
+  const { userId } = context;
+
+  return await context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+      postedBy: {
+        connect: { id: userId },
+      },
+    },
+  });
+};
