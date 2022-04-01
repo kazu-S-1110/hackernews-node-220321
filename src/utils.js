@@ -1,11 +1,11 @@
-import jwt from 'jsonwebtoken';
-export const APP_SECRET = 'GraphQL-is-aw3some';
+const jwt = require('jsonwebtoken');
+const APP_SECRET = 'GraphQL-is-aw3some';
 
 const getTokenPayload = (token) => {
   return jwt.verify(token, APP_SECRET);
 };
 
-export const getUserId = (req, authToken) => {
+const getUserId = (req, authToken) => {
   if (req) {
     const authHeader = req.headers.authorization;
     if (authHeader) {
@@ -21,4 +21,9 @@ export const getUserId = (req, authToken) => {
     return userId;
   }
   throw new Error('Not authentication');
+};
+
+module.exports = {
+  APP_SECRET,
+  getUserId,
 };
